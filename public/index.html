@@ -1,13 +1,18 @@
-Hello World 2
-<!-- Insert and Test out Angular -->
-<script src="angular/angular.js"></script>
+<script src="angular/angular.min.js"></script>
+<script src="angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/controllers/main.controller.js"></script>
 
 <body ng-app="TogglExt" ng-controller="MainController">
-{{2 + 2}}
+	<span ng-click="getWeeklyData()">Last Week Report</span>
+	<ul>
+		<li ng-repeat="project in projects" ng-hide="projects.length===0"> {{ project.project }} : {{ project.hours }} hours </li>
+	</ul>
 </body>
 
 <!-- TODO: This should be a single page application, insert
 UI-Router after getting initial connection to work -->
-<a href="/weekly">Get Weekly Report</a>
+
+<!-- TODO: Add UI-Router to Bower Install-->
+
+<!-- <ui-view></ui-view>

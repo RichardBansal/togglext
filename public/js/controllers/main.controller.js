@@ -19,10 +19,22 @@ app.controller("MainController", function($scope, $http){
 	// 		function(err){
 	// 			console.log('error',err);
 	// 		});
-	$http.get("/weekly")
-		.then(function(data){
-			console.log(data);
-		},function(error){
-			console.log(error);
-		});
+	// TODO Set a default weekly summary for current week
+	// TODO Allow users to select week as well
+	$scope.getWeeklyData = function(){
+		$scope.projects = "";
+		$http.get("/weekly")
+			.then(function(response){
+				console.log("data",response);
+				$scope.projects = response.data;
+			}, function(error){
+				console.log("error",error);
+			});
+	};
+	// $http.get("/weekly")
+	// 	.then(function(data){
+	// 		console.log('data',data);
+	// 	},function(error){
+	// 		console.log('error',error);
+	// 	});
 });
