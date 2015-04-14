@@ -11,12 +11,18 @@ app.controller("MainController", function($scope, $http){
 
 	//you may have to move this to the backend, and make a request from angular to your backend
 	//maybe an issue of having CORs (calling an api from your front end)
-	$http.get("https://toggl.com/reports/api/v2/weekly?workspace_id=732811&user_agent=richard.bansal@gmail.com")
-		.then(
-			function(data){
-				console.log('data',data);
-			},
-			function(err){
-				console.log('error',err);
-			});
+	// $http.get("https://toggl.com/reports/api/v2/weekly?workspace_id=732811&user_agent=richard.bansal@gmail.com")
+	// 	.then(
+	// 		function(data){
+	// 			console.log('data',data);
+	// 		},
+	// 		function(err){
+	// 			console.log('error',err);
+	// 		});
+	$http.get("/weekly")
+		.then(function(data){
+			console.log(data);
+		},function(error){
+			console.log(error);
+		});
 });
