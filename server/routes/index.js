@@ -49,9 +49,9 @@ router.get("/weekly",function(req,res,next){
 		requestAPI.send();
 		
 		//TODO Fix Async issue here (I think - you get 0 data back sometimes, not sure why)
-		// setTimeout(function () {
-            res.send(result);
-        // }, 1000);
+		setTimeout(function () {
+            res.send(result);			
+        }, 500);
 
 });
 
