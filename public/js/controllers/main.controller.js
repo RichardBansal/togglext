@@ -1,5 +1,22 @@
 "use strict"
 
-app.controller("MainController", function($scope){
+app.controller("MainController", function($scope, $http){
+
+	//note - this is only development testing to inject $http
+	//and make a request to an external server
+	//you are using your api key, this shouldn't be done for production
+
+
 	console.log("testing Angular is working");
+
+	//you may have to move this to the backend, and make a request from angular to your backend
+	//maybe an issue of having CORs (calling an api from your front end)
+	$http.get("https://toggl.com/reports/api/v2/weekly?workspace_id=732811&user_agent=richard.bansal@gmail.com")
+		.then(
+			function(data){
+				console.log('data',data);
+			},
+			function(err){
+				console.log('error',err);
+			});
 });
