@@ -1,81 +1,74 @@
-// TODO: Clean up dependencies, multiple calls to bluebird
-// TODO: Find a script to insert "Use Strict" everwhere on file creation
+// NOTES ==================================
 // TODO: Implement Promises
 // var bluebird = require('bluebird');
 // var http = bluebird.promisifyAll(require('http'));
+//Note when you promisify, all functions of the library now require Async attached to it to be used as promises;
+// NOTES ==================================
+
+"use strict";
 
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var router = require('express').Router();
+var Promise = require('bluebird');
 var requestAPI = new XMLHttpRequest();
 
-//Note when you promisify, all functions of the library now require Async attached to it to be used as promises;
-
-var router = require('express').Router();
-
+//load angular app
 router.get("/",function(req,res,next){
 	res.send('index.html');
 });
 
-//TODO fix this implementation, global variable exposed
-var result = []
-var result2 = {}
-;
-//TODO Refactor, you have multiple reqListeners to scrub the data
-function reqListener(){
-	// console.log(this);
-	var self = JSON.parse(this.responseText);
-	
+//source: http://www.html5rocks.com/en/tutorials/es6/promises/#toc-promisifying-xmlhttprequest
+function get(url,api_token){
+	return new Promise(function(resolve, reject){
+		var req = new XMLHttpRequest();
+		req.open('GET',url,true,api_token,"api_token");
+		req.onload = function(){
+			if (req.status == 200){
+				resolve(JSON.parse(req.responseText));	
+			} else {
+				reject(Error(req.statusText));
+			}
+		};
+		req.onerror = function(){
+			reject(Error("Network Error"));
+		};
 
-	result = self.data.map(function(entry){
-		// console.log(entry.title.project,entry.totals[7]/3600000);
-
-		return({
-			project: entry.title.project,
-			hours: Math.round(entry.totals[7]/3600000)
-			});
+		req.send();
 	});
-
-	console.log(result);
 }
 
-function reqListener2(){
-	// console.log(this);
-	result2 = JSON.parse(this.responseText);
-	console.log(result);
-
-}
+// console.log('weekly data requested');
+//CLNUP Figure out why it does not work when using http.get
+//CLNUP Review specific Key information from being exposed
+//CLNUP Improve Transitions, it seems too jaggeded
+//TODO You have specify the week you want the summary for
 
 router.get("/weekly",function(req,res,next){
-	console.log('weekly data requested');
-	// res.send('Weekly Data');
-	//TODO Should the backend request be XML or simple HTTP GET?
-	//TODO FRONT END WILL BE AJAX
-	//TODO below str should be stored in Mongoose with associated user name
-	//TODO Figure out why it does not work when using http.get
-	//TODO Review specific Key information from being exposed
-		requestAPI.onload = reqListener;
-	//TODO You have specify the week you want the summary for
-		requestAPI.open("get","https://toggl.com/reports/api/v2/weekly?workspace_id=732811&since=2015-04-06&until=2015-04-12&user_agent=richard.bansal@gmail.com",true,"c042bbef2a5b8606674641543043d64b","api_token");
-		requestAPI.send();
-		
-		//TODO Fix Async issue here (I think - you get 0 data back sometimes, not sure why)
-		setTimeout(function () {
-            res.send(result);			
-        }, 1000);
-
+	var url = "https://toggl.com/reports/api/v2/weekly?workspace_id=732811&since=2015-04-06&until=2015-04-12&user_agent=richard.bansal@gmail.com";
+	var api_token = "c042bbef2a5b8606674641543043d64b";
+	get(url, api_token).then(function(response){
+		res.send(response.data.map(function(entry){
+				return({
+					project: entry.title.project,
+					hours: Math.round(entry.totals[7]/3600000)
+				});
+			})
+		);
+	}, function(error){
+		console.error("Failed!",error);
+	});
 });
 
 router.get("/currentTask",function(req,res,next){
-	console.log('current active task requested');
+	// console.log('current active task requested');
+	var url = "https://www.toggl.com/api/v8/time_entries/current";
+	var api_token = "c042bbef2a5b8606674641543043d64b";
 
-	requestAPI.onload = reqListener2;
-	requestAPI.open("get","https://www.toggl.com/api/v8/time_entries/current",true,"c042bbef2a5b8606674641543043d64b","api_token");
-	requestAPI.send();
-
-
-	//Todo: Having issues with Async here
-	setTimeout(function () {
-        res.send(result2);			
-    }, 1000);
+	get(url, api_token).then(function(response){
+		res.send(response);
+	}, function(error){
+		console.error("Failed!",error);
+	});
 
 });
 

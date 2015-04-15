@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname,"/public")));
 app.use(express.static(path.join(__dirname,"/bower_components")));
 app.use(routes);
 
-//TODO: set up routes error handling
+//CLNUP: set up routes error handling
 
 app.listen(3000);
 
