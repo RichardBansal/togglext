@@ -11,18 +11,17 @@
 
 	<body ng-app="TogglExt" ng-controller="MainController">
 		<div class="main">
-			<button ui-sref="week">Last Week Report</button><br/>
-				<span>Task Name : {{activeTask.data.description}}</span><br/>
-				<span>Time : {{activeTask.data.duration}}</span><br/>
+				<span><h4><u>Active Task</u> </br>{{activeTask.data.description}}</h4></span>
+				<span><h4><u>Duration</u> </br> {{activeTask.data.duration}}</h4></span>
 
 				<div ui-view></div>
 
-				<div>
-					<button class="glyphicon glyphicon-pause" aria-hidden="true"></button>
+				<div class="clearfix">
+					<button class="glyphicon glyphicon-pause" aria-hidden="true" ui-sref="week"></button>
 					<button class="glyphicon glyphicon-play" aria-hidden="true"></button>
 					<button class="glyphicon glyphicon-stop" aria-hidden="true"></button>
 					<button class="glyphicon glyphicon-plus" aria-hidden="true"></button>
-					<button class="glyphicon glyphicon-stats" aria-hidden="true"></button>
+					<button ui-sref="week" class="glyphicon glyphicon-stats" aria-hidden="true"></button>
 				</div>
 
 				
