@@ -6,12 +6,26 @@
 		<script src="js/controllers/main.controller.js"></script>
 		<!-- <script src="js/controllers/week.controller.js"></script> -->
 		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.min.css">
 	</head>
 
 	<body ng-app="TogglExt" ng-controller="MainController">
 		<div class="main">
-			<button ui-sref="week">Last Week Report</button>
+			<button ui-sref="week">Last Week Report</button><br/>
+				<span>Task Name : {{activeTask.data.description}}</span><br/>
+				<span>Time : {{activeTask.data.duration}}</span><br/>
+
 				<div ui-view></div>
+
+				<div>
+					<button class="glyphicon glyphicon-pause" aria-hidden="true"></button>
+					<button class="glyphicon glyphicon-play" aria-hidden="true"></button>
+					<button class="glyphicon glyphicon-stop" aria-hidden="true"></button>
+					<button class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+					<button class="glyphicon glyphicon-stats" aria-hidden="true"></button>
+				</div>
+
+				
 		</div>
 	</body>
 </html>

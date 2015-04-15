@@ -1,11 +1,20 @@
 .main {
     border-color: red;
-    width: 350px;
-    border-width: 10px;
-    height: 200px;
-    background: skyblue;
-    border: 1px solid black;
+    width: 400px;
+    border-width: 1px;
+    height: 250px;
+    background: #FA9600;
+    border: 0px solid #2A5769;
     margin: 10px;
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 10px;
+}
+
+.glyphicon {
+    border-radius: 100%;
+    color: #2A5769;
+    background: #FABD4A;
+    font-size: 30px;
+    margin: 1px;
+    padding: 8px;
 }

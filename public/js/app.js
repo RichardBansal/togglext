@@ -8,7 +8,7 @@ app.config(function($stateProvider,$urlRouterProvider){
 			url: '/week',
 			templateUrl: 'js/templates/week.html',
 			controller: function($scope, $http) {
-				//TODO: getWeeklyData should be in a factory
+				//TODO: getWeeklyData should be in a factory, not controller
 				function getWeeklyData(){
 					$scope.projects = "";
 					$http.get("/weekly")
@@ -22,5 +22,11 @@ app.config(function($stateProvider,$urlRouterProvider){
 
 				getWeeklyData();
 			}
+		})
+		.state('activeTask',{
+
+		})
+		.state('newTask',{
+			
 		})
 });
