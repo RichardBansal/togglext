@@ -6,7 +6,9 @@
 		<script src="js/controllers/main.controller.js"></script>
 		<script src="js/controllers/activetask.controller.js"></script>
 		<script src="js/controllers/week.controller.js"></script>
-		
+		<script src="js/controllers/button.controller.js"></script>
+		<script src="js/factories/activetask.factory.js"></script>
+
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.min.css">
 	</head>
@@ -18,15 +20,8 @@
 
 				<div ui-view></div>
 
-				<div class="clearfix">
-					<button class="glyphicon glyphicon-pause" aria-hidden="true" ui-sref="week"></button>
-					<button class="glyphicon glyphicon-play" aria-hidden="true"></button>
-					<button class="glyphicon glyphicon-stop" aria-hidden="true"></button>
-					<button class="glyphicon glyphicon-plus" aria-hidden="true"></button>
-					<button ui-sref="week" class="glyphicon glyphicon-stats" aria-hidden="true"></button>
-				</div>
-
-				
+				<div ng-include="'js/templates/buttons.html'">
+				</div>				
 		</div>
 	</body>
 </html>

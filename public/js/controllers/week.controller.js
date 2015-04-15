@@ -5,7 +5,6 @@ app.controller("WeekController", function($scope, $http) {
 	$scope.projects;
 	$http.get("/weekly")
 		.then(function(response){
-			console.log("data", response);
 			$scope.projects = response.data;
 		}, function(error){
 			console.log("error", error);

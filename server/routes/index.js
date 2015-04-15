@@ -1,5 +1,4 @@
 // NOTES ==================================
-// TODO: Implement Promises
 // var bluebird = require('bluebird');
 // var http = bluebird.promisifyAll(require('http'));
 //Note when you promisify, all functions of the library now require Async attached to it to be used as promises;
@@ -18,10 +17,12 @@ router.get("/",function(req,res,next){
 });
 
 //source: http://www.html5rocks.com/en/tutorials/es6/promises/#toc-promisifying-xmlhttprequest
-function get(url,api_token){
+//CLNUP: Change function name from get, to all or something generic
+//CLNUP: ensure functions call 'get' are updated and tested as well
+function get(url,api_token,type){
 	return new Promise(function(resolve, reject){
 		var req = new XMLHttpRequest();
-		req.open('GET',url,true,api_token,"api_token");
+		req.open(type,url,true,api_token,"api_token");
 		req.onload = function(){
 			if (req.status == 200){
 				resolve(JSON.parse(req.responseText));	
@@ -44,9 +45,9 @@ function get(url,api_token){
 //TODO You have specify the week you want the summary for
 
 router.get("/weekly",function(req,res,next){
-	var url = "https://toggl.com/reports/api/v2/weekly?workspace_id=732811&since=2015-04-06&until=2015-04-12&user_agent=richard.bansal@gmail.com";
+	var url = "https://toggl.com/reports/api/v2/weekly?workspace_id=732811&since=2015-04-13&until=2015-04-19&user_agent=richard.bansal@gmail.com";
 	var api_token = "c042bbef2a5b8606674641543043d64b";
-	get(url, api_token).then(function(response){
+	get(url, api_token, "GET").then(function(response){
 		res.send(response.data.map(function(entry){
 				return({
 					project: entry.title.project,
@@ -64,10 +65,25 @@ router.get("/currentTask",function(req,res,next){
 	var url = "https://www.toggl.com/api/v8/time_entries/current";
 	var api_token = "c042bbef2a5b8606674641543043d64b";
 
-	get(url, api_token).then(function(response){
+	get(url, api_token, "GET").then(function(response){
 		res.send(response);
 	}, function(error){
 		console.error("Failed!",error);
+	});
+
+});
+
+router.put("/stopCurrentTask/:id",function(req,res,next){
+	console.log(req.params);
+	//CLNUP: below line
+	var url = "https://www.toggl.com/api/v8/time_entries/"+req.params.id+"/stop";
+	var api_token = "c042bbef2a5b8606674641543043d64b";
+	
+	get(url,api_token,"PUT").then(function(response){
+		console.log('task stopped', response);
+		res.end();
+	}, function(error){
+		console.error("Failed!", error);
 	});
 
 });
