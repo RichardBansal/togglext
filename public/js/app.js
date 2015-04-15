@@ -3,30 +3,21 @@
 var app = angular.module("TogglExt",['ui.router']);
 
 app.config(function($stateProvider,$urlRouterProvider){
+
+	// $urlRouterProvider.otherwise("/state1");
+	// $urlRouterProvider.when('/', '/activetask');
 	$stateProvider
 		.state('week', {
 			url: '/week',
 			templateUrl: 'js/templates/week.html',
-			controller: function($scope, $http) {
-				//TODO: getWeeklyData should be in a factory, not controller
-				function getWeeklyData(){
-					$scope.projects = "";
-					$http.get("/weekly")
-						.then(function(response){
-							console.log("data",response);
-							$scope.projects = response.data;
-						}, function(error){
-							console.log("error",error);
-						});
-				};
-
-				getWeeklyData();
-			}
+			controller: "WeekController"
 		})
-		.state('activeTask',{
-
+		.state('activetask',{ //TODO: Remove if not used
+			url:'/activetask',
+			templateUrl: 'js/templates/activetask.html',
+			controller: "ActivetaskController"
 		})
-		.state('newTask',{
+		.state('newtask',{
 			
 		})
 });
