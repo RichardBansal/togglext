@@ -2,6 +2,12 @@
 
 app.controller("ActivetaskController", function($rootScope, $scope,$http, ActivetaskFactory){
 	$scope.activetask;
+
+	$scope.$on('active:resume',function(){
+		console.log("yabadabadoo!");
+		$scope.active = ActivetaskFactory.active;
+	});
+
 	$http.get("/currentTask")
 		.then(function(response){
 			// console.log("data", response);
@@ -10,16 +16,15 @@ app.controller("ActivetaskController", function($rootScope, $scope,$http, Active
 				response.data.data.duration = Math.round((response.data.data.duration+(new Date().getTime())/1000)/60);
 				$scope.activetask = response.data;
 				// console.log(response.data.data.id); //220215309
+				//CLNUP: You should only have response.data, not .data.data
 				ActivetaskFactory.data = response.data.data;
-				ActivetaskFactory.active = true;
-				// console.log(ActivetaskFactory.active);
+				$scope.active = ActivetaskFactory.active = true;
+				// console.log(ActivetaskFactory);
 			} else {
-				$scope.activetask = null;
-				ActivetaskFactory.active = false;
+				$scope.active = ActivetaskFactory.active = false;
 			}
-			$rootScope.$broadcast('active:data',true);
-			console.log('fired');
+			$rootScope.$broadcast('active:data');
 		}, function(error){
-			console.log("error", error);
+			console.error("error", error);
 		});
 });

@@ -19,7 +19,9 @@ router.get("/",function(req,res,next){
 //source: http://www.html5rocks.com/en/tutorials/es6/promises/#toc-promisifying-xmlhttprequest
 //CLNUP: Change function name from get, to all or something generic
 //CLNUP: ensure functions call 'get' are updated and tested as well
-function get(url,api_token,type){
+function get(url,api_token,type,data){
+	// console.log('attempt to resumit','\''+JSON.stringify(data)+'\'');
+	// console.log("submit");
 	return new Promise(function(resolve, reject){
 		var req = new XMLHttpRequest();
 		req.open(type,url,true,api_token,"api_token");
@@ -27,14 +29,25 @@ function get(url,api_token,type){
 			if (req.status == 200){
 				resolve(JSON.parse(req.responseText));	
 			} else {
-				reject(Error(req.statusText));
+				reject(Error(JSON.stringify(req)));
 			}
 		};
 		req.onerror = function(){
 			reject(Error("Network Error"));
 		};
 
-		req.send();
+		if(data===undefined){
+			req.send();
+		} else {
+			console.log(JSON.stringify(data));
+			req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			// req.send('\''+JSON.stringify(data)+'\'');
+			req.send(JSON.stringify(data));
+			//CLNUP: You don't have the latest item you are trying to stop stored
+
+			// '{"time_entry":{"description":"Meeting with possible clients","tags":["billed"],"pid":123,"created_with":"curl"}}'
+			// '{"time_entry":{"description":"Toggl Chrome Ext.","pid":9302237,"created_with":"togglExt"}}'
+		}
 	});
 }
 
@@ -80,12 +93,28 @@ router.put("/stopCurrentTask/:id",function(req,res,next){
 	var api_token = "c042bbef2a5b8606674641543043d64b";
 	
 	get(url,api_token,"PUT").then(function(response){
-		console.log('task stopped', response);
+		// console.log('task stopped', response);
 		res.end();
 	}, function(error){
 		console.error("Failed!", error);
 	});
 
+});
+
+
+// TODO: Cannot get POST to work, did not work via CURL as well, test out CREATE THEN START
+router.post("/resumeCurrentTask",function(req,res,next){
+	// console.log('here');
+	console.log(JSON.stringify(req.body));
+	var url = "https://www.toggl.com/api/v8/time_entries/start";
+	//CLNUP place api_token in api/config and publish all commits afterwards (not before)
+	var api_token = "c042bbef2a5b8606674641543043d64b"; 
+	get(url,api_token,"POST",req.body).then(function(response){
+		// console.log('task resumed', response);
+		res.send(response);
+	}, function(error){
+		console.error("Failed!",error);
+	});
 });
 
 module.exports = router;

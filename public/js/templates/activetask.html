@@ -1,8 +1,8 @@
 <div ng-controller="ActivetaskController">
-	<div ng-show="activetask === null">
+	<div ng-show="!active">
 		<h3>No Active Toggl</h3>
 	</div>
-	<div ng-hide="activetask === null">
+	<div ng-show="active">
 		<span><h4><u>Active Task</u> </br></h4>{{activetask.data.description}}</span>
 		<span><h4><u>Duration</u> </br> </h4>{{activetask.data.duration}} Minutes </span>
 	</div>

@@ -4,14 +4,18 @@ app.factory("ActivetaskFactory",function(){
 	return {
 		data: undefined,
 		active: false,
-		set: false
+		paused: false
 	};
 });
 
-//NEXT: Update boolean based on stop, pause - check against the API for CREATE
-//NEXT: Complete buttons, disable buttons, based on factory data
-//NEXT: You should only have PLAY or PAUSE button, not both available to you
+//CLNUP: You could broadcast from the factory based on any changes, using a getting/setter
 
+//TODO: Update boolean based on stop, pause - check against the API for CREATE
+//DONE: Complete buttons, disable buttons, based on factory data
+//DONE: You should only have PLAY or PAUSE button, not both available to you
+
+
+//NOTE: The format only exists for data defined, so if it is not defined, like description, you will not have access to it
 //FORMAT:
 // { data:
 //    { id: 220237503,
