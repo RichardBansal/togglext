@@ -1,7 +1,10 @@
+<!-- REF: Creat as a Directive -->
 <div class="clearfix" ng-controller="ButtonController">
-	<button ng-show="active" ng-click="pauseToggl()" class="glyphicon glyphicon-pause" aria-hidden="true"></button>
-	<button ng-show="!active" ng-click="playToggl()" class="glyphicon glyphicon-play" aria-hidden="true"></button>
-	<button ng-show="active" ng-click="stopToggl()" class="glyphicon glyphicon-stop" aria-hidden="true"></button>
-	<button ui-sref="newtask" class="glyphicon glyphicon-plus" aria-hidden="true"></button>
-	<button ui-sref="week" class="glyphicon glyphicon-stats" aria-hidden="true"></button>
+	<button ng-show="!paused&&active" ng-click="pauseToggl()" class="glyphicon glyphicon-pause" aria-hidden="true"></button>
+	<button ng-show="paused" ng-click="playToggl()" class="glyphicon glyphicon-play" aria-hidden="true"></button>
+	<button ng-show="!paused&&active" ng-click="stopToggl()" class="glyphicon glyphicon-stop" aria-hidden="true"></button>
+	<button ng-click="newTask()" class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+	<button ng-click="showWeek()" class="glyphicon glyphicon-stats" aria-hidden="true"></button>
 </div>
+
+<!-- REF: You cannot add a new toggl unless the current one is stopped -->

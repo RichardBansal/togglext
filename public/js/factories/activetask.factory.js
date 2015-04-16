@@ -37,12 +37,12 @@ app.factory("ActivetaskFactory", function($http){
 	};
 });
 
-//Post-Gym
+// NEXT: Clean up view/UI-Router
 // NEXT: Duration is a Running Timer instead of a fixed value (and in hours:minutes form)
 // NEXT: Stop current task when you click new
 // Place in Chrome Ext (before working with Justin)
 
-//CLNUP: You could broadcast from the factory based on any changes, using a getting/setter
+//CLNUP: You could broadcast from the factory based on any changes, using a getting/setter, or pass by reference
 
 //NOTE: The format only exists for data defined, so if it is not defined, like description, you will not have access to it
 //FORMAT:

@@ -10,17 +10,21 @@
 		<script src="js/controllers/newtask.controller.js"></script>
 		<script src="js/factories/activetask.factory.js"></script>
 		<script src="js/factories/week.factory.js"></script>
-
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.min.css">
 	</head>
 
-	<body ng-app="TogglExt" ng-controller="MainController">
+	<body ng-app="TogglExt" ng-controller="MainController" ng-csp="">
 		<div class="main">
 				<div ng-include="'js/templates/activetask.html'">
 				</div>
 
-				<div ui-view></div>
+				<div ng-include="'js/templates/newtask.html'">
+				</div>
+				
+				<!-- <div ui-view></div> -->
+				<div ng-include="'js/templates/week.html'">
+				</div>
 
 				<div ng-include="'js/templates/buttons.html'">
 				</div>				

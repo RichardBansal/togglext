@@ -2,8 +2,12 @@
 
 app.controller("TaskController", function($rootScope, $scope, $http, ActivetaskFactory) {
 	$scope.newEntry = {};
-	$scope.newEntry.project = "";
-	$scope.newEntry.desc = "";
+	$scope.newEntry.project = "Select Project";
+	$scope.newEntry.desc = "Enter Description";
+
+	$rootScope.$on('task:stopped',function(){
+		$scope.active = ActivetaskFactory.active;
+	});
 
 	$scope.submit = function(){
 		var time_entry = {"time_entry":
@@ -17,7 +21,7 @@ app.controller("TaskController", function($rootScope, $scope, $http, ActivetaskF
 						
 		ActivetaskFactory.newOrResumeToggl(time_entry).then(function(response){
 				ActivetaskFactory.data = response.data.data;
-				ActivetaskFactory.paused = false;
+				$scope.active = ActivetaskFactory.active = true;
 				$rootScope.$broadcast('createtask:completed');
 		});
 	};

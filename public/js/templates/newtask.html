@@ -1,4 +1,4 @@
-<div ng-controller="TaskController">
+<div ng-show="createTimer&&!active" ng-controller="TaskController">
 	<form name="newEntry" ng-submit="submit(newEntry)">
 	<!-- CLNUP: Retrieve Last 10 projects to populate here -->
 	<label>Project:</label>

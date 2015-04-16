@@ -1,0 +1,12 @@
+{
+  "manifest_version": 12,
+  "name": "TogglExt",
+  "description": "Interface to Toggl API",
+  "version": "0.1",
+  "permissions": [],
+  "app": {
+    "background": {
+      "scripts": ["load.js"]
+    }
+  }
+}

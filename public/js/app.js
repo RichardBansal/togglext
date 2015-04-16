@@ -17,7 +17,7 @@ app.config(function($stateProvider,$urlRouterProvider){
 			templateUrl: 'js/templates/activetask.html',
 			controller: "ActivetaskController"
 		})
-		.state('newtask',{
+		.state('newtask',{ //CLNUP: Remove if not used
 			url: '/newtask',
 			templateUrl: 'js/templates/newtask.html',
 			controller: "TaskController"

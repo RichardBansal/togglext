@@ -1,6 +1,10 @@
-<span><h4><u>This Week's Summary:</u></h4></span>
-<ul>
-	<li ng-repeat="project in projects" ng-hide="projects.length===0"> {{ project.project }} : {{ project.hours }} hours </li>
-</ul>
+<!-- REF: Place functions in ng-hide, not expressions -->
+<div ng-show="weekSummary" ng-controller="WeekController">
+	<span><h4><u>This Week's Summary:</u></h4></span>
+	<ul>
+		<li ng-repeat="project in projects" ng-hide="projects.length===0"> {{ project.project }} : {{ project.hours }} hours </li>
+	</ul>
+</div>
 
 <!-- CLNUP: SHOW HOURS:MINUTES FORMAT INSTEAD OF JUST HOURS OR MINUTES -->
+<!-- CLNUP: Clean up the code presentation -->

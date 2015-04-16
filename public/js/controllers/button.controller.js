@@ -6,20 +6,26 @@ app.controller("ButtonController", function($rootScope, $scope, $http, Activetas
 		$scope.active = ActivetaskFactory.active;
 	});
 
+	$scope.$on('createtask:completed',function(){
+		$scope.active = ActivetaskFactory.active;
+	});
+
 	$scope.stopToggl = function(){
 		ActivetaskFactory.stopToggl(ActivetaskFactory.data.id).then(function(response){
 			$scope.active = ActivetaskFactory.active = false;
+			$scope.paused = ActivetaskFactory.paused = false;
+			$rootScope.$broadcast('task:stopped');
 		});
 	};
 
 	$scope.pauseToggl = function(){
-		if(ActivetaskFactory.paused){
-			$scope.resumeToggl();
-		} else {
+		// if(ActivetaskFactory.paused){
+			// $scope.resumeToggl();
+		// } else {
 			ActivetaskFactory.stopToggl(ActivetaskFactory.data.id).then(function(response){
-				ActivetaskFactory.paused = true;
+				$scope.paused = ActivetaskFactory.paused = true;
 			});
-		}
+		// }
 	};
 
 	//CLNUP: You need to have descript as required to be saved by the API
@@ -32,17 +38,22 @@ app.controller("ButtonController", function($rootScope, $scope, $http, Activetas
 								"created_with":"togglExt"
 							}
 						};
-						
+
 		ActivetaskFactory.newOrResumeToggl(time_entry).then(function(response){
 				ActivetaskFactory.data = response.data.data;
-				ActivetaskFactory.paused = false;
+				$scope.paused = ActivetaskFactory.paused = false;
 				$rootScope.$broadcast('active:resume');
 		});
 	};
 
 	$scope.playToggl = function(){
-		$scope.active = true;
-		// console.log($scope.active);
+		// if(ActivetaskFactory.paused){
+			$scope.resumeToggl();
+		// } else {
+			// ActivetaskFactory.stopToggl(ActivetaskFactory.data.id).then(function(response){
+				// $scope.paused = ActivetaskFactory.paused = false;
+			// });
+		// }
 	};
 
 });

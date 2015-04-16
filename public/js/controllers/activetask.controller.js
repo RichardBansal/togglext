@@ -12,6 +12,11 @@ app.controller("ActivetaskController", function($rootScope, $scope,ActivetaskFac
 
 	$rootScope.$on('createtask:completed',function(){
 		$scope.activetask = ActivetaskFactory.data;
+		$scope.active = ActivetaskFactory.active;
+	});
+
+	$rootScope.$on('task:stopped',function(){
+		$scope.active = ActivetaskFactory.active;
 	});
 
 	ActivetaskFactory.getCurrentTask().then(function(response){
@@ -21,6 +26,8 @@ app.controller("ActivetaskController", function($rootScope, $scope,ActivetaskFac
 		} else {
 			$scope.active = ActivetaskFactory.active = false;
 		}
+		//REF: Move away from rootscope broadcasts, and use pass by reference
+		// via factory instead
 		$rootScope.$broadcast('active:data');
 	});
 });
