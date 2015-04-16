@@ -102,8 +102,23 @@ router.put("/stopCurrentTask/:id",function(req,res,next){
 });
 
 
-// TODO: Cannot get POST to work, did not work via CURL as well, test out CREATE THEN START
+// DONE: Cannot get POST to work, did not work via CURL as well, test out CREATE THEN START
 router.post("/resumeCurrentTask",function(req,res,next){
+	// console.log('here');
+	console.log(JSON.stringify(req.body));
+	var url = "https://www.toggl.com/api/v8/time_entries/start";
+	//CLNUP place api_token in api/config and publish all commits afterwards (not before)
+	var api_token = "c042bbef2a5b8606674641543043d64b"; 
+	get(url,api_token,"POST",req.body).then(function(response){
+		// console.log('task resumed', response);
+		res.send(response);
+	}, function(error){
+		console.error("Failed!",error);
+	});
+});
+
+// TODO: Below post for creating task
+router.post("/createTask",function(req,res,next){
 	// console.log('here');
 	console.log(JSON.stringify(req.body));
 	var url = "https://www.toggl.com/api/v8/time_entries/start";

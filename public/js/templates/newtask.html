@@ -1,0 +1,19 @@
+<div ng-controller="TaskController">
+	<form name="newEntry" ng-submit="submit(newEntry)">
+	<!-- CLNUP: Retrieve Last 10 projects to populate here -->
+	<label>Project:</label>
+	<select name="Projects" ng-model="newEntry.project">
+		<option value="JS Coding">JS Coding</option>
+		<option value="JS Consuming">JS Consuming</option>
+		<option value="JS Refactoring">JS Refactoring</option>
+		<option value="JS Connecting">JS Connecting</option>
+	</select></br>
+	<!-- CLNUP: Retrieve Last 10 task for auto-suggest -->
+		<label>Description:</label><input type="text" name="description" ng-model="newEntry.desc">
+
+		<button >Start</button>
+	</form>
+</div>
+
+<!-- CLNUP: When you Click NEW, you must stop the current task -->
+<!-- CLNUP: Task starts when you click enter -->

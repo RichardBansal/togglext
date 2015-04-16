@@ -31,7 +31,7 @@ app.controller("ButtonController", function($rootScope, $scope, $http, Activetas
 				// console.log('response received');
 				$scope.active = ActivetaskFactory.active = false;
 				// $scope.active.apply();
-				console.log(ActivetaskFactory.active);
+				// console.log(ActivetaskFactory.active);
 			}, function(error){
 				console.log("error",error);
 			});
@@ -46,9 +46,9 @@ app.controller("ButtonController", function($rootScope, $scope, $http, Activetas
 		} else {
 		$http.put("/stopCurrentTask/"+ActivetaskFactory.data.id)
 			.then(function(response){
-				console.log(ActivetaskFactory.active);
+				// console.log(ActivetaskFactory.active);
 				ActivetaskFactory.paused = true;
-				console.log(ActivetaskFactory)
+				// console.log(ActivetaskFactory)
 			}, function(error){
 				console.log("error",error);
 			});
@@ -60,7 +60,7 @@ app.controller("ButtonController", function($rootScope, $scope, $http, Activetas
 	$scope.resumeToggl = function(){
 		// $scope.active = true;
 		// console.log($scope.active);
-		console.log('resume',ActivetaskFactory);
+		// console.log('resume',ActivetaskFactory);
 		$http.post("/resumeCurrentTask",{
 			"time_entry":{
 				"description":ActivetaskFactory.data.description,
@@ -71,10 +71,11 @@ app.controller("ButtonController", function($rootScope, $scope, $http, Activetas
 			.then(function(response){
 				// console.log(response.data);
 				response.data.data.duration = Math.round((response.data.data.duration+(new Date().getTime())/1000)/60);
-				$scope.activetask = response.data;
 				ActivetaskFactory.data = response.data.data;
+				// $scope.active = ActivetaskFactory.active = true;
+				// console.log(ActivetaskFactory.data);
 				ActivetaskFactory.paused = false;
-				$rootScope.$broadcast('active:data');
+				$rootScope.$broadcast('active:resume');
 			}, function(error){
 				console.error("error",error);
 			});
@@ -82,7 +83,7 @@ app.controller("ButtonController", function($rootScope, $scope, $http, Activetas
 
 	$scope.playToggl = function(){
 		$scope.active = true;
-		console.log($scope.active);
+		// console.log($scope.active);
 	};
 
 });

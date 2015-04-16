@@ -18,6 +18,8 @@ app.config(function($stateProvider,$urlRouterProvider){
 			controller: "ActivetaskController"
 		})
 		.state('newtask',{
-			
+			url: '/newtask',
+			templateUrl: 'js/templates/newtask.html',
+			controller: "TaskController"
 		})
 });

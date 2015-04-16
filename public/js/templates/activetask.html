@@ -3,7 +3,9 @@
 		<h3>No Active Toggl</h3>
 	</div>
 	<div ng-show="active">
-		<span><h4><u>Active Task</u> </br></h4>{{activetask.data.description}}</span>
-		<span><h4><u>Duration</u> </br> </h4>{{activetask.data.duration}} Minutes </span>
+		<span><h4><u>Active Task</u> </br></h4>{{activetask.description}}</span>
+		<span><h4><u>Duration</u> </br> </h4>{{activetask.duration}} Minutes </span>
 	</div>
 </div>
+
+<!-- //CLNUP: The duration should be a running timer, not a fixed value -->

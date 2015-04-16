@@ -5,7 +5,13 @@ app.controller("ActivetaskController", function($rootScope, $scope,$http, Active
 
 	$scope.$on('active:resume',function(){
 		console.log("yabadabadoo!");
-		$scope.active = ActivetaskFactory.active;
+		// $scope.active = ActivetaskFactory.active;
+		console.log(ActivetaskFactory.data);
+		$scope.activetask = ActivetaskFactory.data;
+	});
+
+	$rootScope.$on('createtask:completed',function(){
+		$scope.activetask = ActivetaskFactory.data;
 	});
 
 	$http.get("/currentTask")
@@ -14,10 +20,11 @@ app.controller("ActivetaskController", function($rootScope, $scope,$http, Active
 			if(response.data.data !== null){
 				//CLNUP: Place this in a helper or factor, not on the front end
 				response.data.data.duration = Math.round((response.data.data.duration+(new Date().getTime())/1000)/60);
-				$scope.activetask = response.data;
+				// $scope.activetask = response.data;
+				// console.log($scope.activetask);
 				// console.log(response.data.data.id); //220215309
 				//CLNUP: You should only have response.data, not .data.data
-				ActivetaskFactory.data = response.data.data;
+				$scope.activetask = ActivetaskFactory.data = response.data.data;
 				$scope.active = ActivetaskFactory.active = true;
 				// console.log(ActivetaskFactory);
 			} else {
